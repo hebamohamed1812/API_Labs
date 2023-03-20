@@ -1,4 +1,5 @@
 using lab1.Filters;
+using lab1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<CounterMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -16,7 +16,7 @@ public class ValidateCarTypeAttribute : ActionFilterAttribute
     public override void OnActionExecuting(ActionExecutingContext context)
     {
         _logger.LogCritical("This is a custom action filter");
-        var allowedTypeRegex = new Regex("[Electric|Gas|Diesel|Hybrid]",
+        var allowedTypeRegex = new Regex("^(Electric|Gas|Diesel|Hybrid)$",
             RegexOptions.IgnoreCase,
             TimeSpan.FromSeconds(2));
 

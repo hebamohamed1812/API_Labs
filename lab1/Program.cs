@@ -21,7 +21,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<CounterMiddleware>();
+var counter = 0;
+app.Use(async (context, next) =>
+{
+    counter++;
+    Console.WriteLine("Request counter: " + counter);
+    await next(context);
+});
 
 app.UseHttpsRedirection();
 

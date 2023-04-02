@@ -1,4 +1,6 @@
-﻿namespace Tickets.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Tickets.DAL;
 
 public class DepartmentsRepo : GenericRepo<Department>, IDepartmentsRepo
 {
@@ -14,5 +16,13 @@ public class DepartmentsRepo : GenericRepo<Department>, IDepartmentsRepo
         return _context.Departments
             .Where(d => d.Name == name)
             .ToList();
+    }
+
+    public Department? GetByIdWithTickets(int id)
+    {
+        return _context.Departments
+            .Include(d => d.Tickets)
+                .ThenInclude(p => p.Developers)
+            .FirstOrDefault(d => d.Id == id);
     }
 }

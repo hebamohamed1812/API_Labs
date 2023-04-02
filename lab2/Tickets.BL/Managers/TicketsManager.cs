@@ -5,16 +5,16 @@ namespace Tickets.BL;
 
 public class TicketsManager : ITicketsManager
 {
-    private readonly ITicketsRepo _ticketsRepo;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public TicketsManager(ITicketsRepo ticketsRepo)
+    public TicketsManager(IUnitOfWork unitOfWork)
     {
-        _ticketsRepo = ticketsRepo;
+        _unitOfWork = unitOfWork;
     }
 
     public List<TicketReadDto> GetAll()
     {
-        List<Ticket> ticketsFromDb = _ticketsRepo.GetAll();
+        List<Ticket> ticketsFromDb = _unitOfWork.TicketsRepo.GetAll();
         
         return ticketsFromDb
             .Select(d => new TicketReadDto
@@ -26,7 +26,7 @@ public class TicketsManager : ITicketsManager
             .ToList();
     }
 
-    public void Add(TicketAddDto ticketDto)
+    public int Add(TicketAddDto ticketDto)
     {
         var ticket = new Ticket
         {
@@ -35,7 +35,9 @@ public class TicketsManager : ITicketsManager
             EstimationCost = ticketDto.EstimationCost
         };
         
-        _ticketsRepo.Add(ticket);
-        _ticketsRepo.SaveChanges();
+        _unitOfWork.TicketsRepo.Add(ticket);
+        _unitOfWork.TicketsRepo.SaveChanges();
+
+        return ticket.Id;
     }
 }

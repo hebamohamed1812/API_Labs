@@ -18,8 +18,10 @@ builder.Services.AddDbContext<TicketsContext>(options =>
 
 builder.Services.AddScoped<IDepartmentsRepo, DepartmentsRepo>();
 builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ITicketsManager, TicketsManager>();
+builder.Services.AddScoped<IDepartmentsManager, DepartmentsManager>();
 
 var app = builder.Build();
 

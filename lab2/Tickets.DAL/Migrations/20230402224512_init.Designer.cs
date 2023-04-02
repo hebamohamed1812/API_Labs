@@ -11,7 +11,7 @@ using Tickets.DAL;
 namespace Tickets.DAL.Migrations
 {
     [DbContext(typeof(TicketsContext))]
-    [Migration("20230331225829_init")]
+    [Migration("20230402224512_init")]
     partial class init
     {
         /// <inheritdoc />

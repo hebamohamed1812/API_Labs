@@ -3,5 +3,5 @@
 public interface ITicketsManager
 {
     List<TicketReadDto> GetAll();
-    void Add(TicketAddDto ticket);
+    int Add(TicketAddDto ticket);
 }

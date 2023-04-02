@@ -9,16 +9,30 @@ namespace Tickets.APIs.Controllers;
 public class TicketsController : ControllerBase
 {
     private readonly ITicketsManager _ticketsManager;
+    private readonly IDepartmentsManager _departmentsManager;
 
-    public TicketsController(ITicketsManager ticketsManager)
+    public TicketsController(ITicketsManager ticketsManager, IDepartmentsManager departmentsManager)
     {
         _ticketsManager = ticketsManager;
+        _departmentsManager = departmentsManager;
     }
 
     [HttpGet]
     public ActionResult<List<TicketReadDto>> GetAll()
     {
         return _ticketsManager.GetAll();
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public ActionResult<DepartmentWithTicketsReadDto> GetByIdWithTickets(int id)
+    {
+        var departmentDto = _departmentsManager.GetByIdWithTickets(id);
+        if (departmentDto is null)
+        {
+            return NotFound();
+        }
+        return departmentDto;
     }
 
     [HttpPost]

@@ -1,5 +1,5 @@
 ﻿using Tickets.DAL;
-namespace Tickets.BL;
+namespace Tickets.BL.Dtos;
 
 public class TicketReadDto
 {
